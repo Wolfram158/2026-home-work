@@ -38,7 +38,10 @@ val integrationTestImplementation by configurations.getting {
 }
 val integrationTestRuntimeOnly by configurations.getting
 
-configurations["integrationTestRuntimeOnly"].extendsFrom(configurations.runtimeOnly.get(), configurations.testRuntimeOnly.get())
+configurations["integrationTestRuntimeOnly"].extendsFrom(
+    configurations.runtimeOnly.get(),
+    configurations.testRuntimeOnly.get()
+)
 
 
 tasks.test {
