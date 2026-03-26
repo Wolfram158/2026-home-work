@@ -1,6 +1,7 @@
 package company.vk.edu.distrib.compute;
 
-import company.vk.edu.distrib.compute.impl.KVServiceFactoryImpl;
+import company.vk.edu.distrib.compute.impl.KVServiceFactoryFileWithCacheImpl;
+import company.vk.edu.distrib.compute.impl.KVServiceFactoryRamImpl;
 import org.jspecify.annotations.NonNull;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.params.provider.Arguments;
@@ -13,7 +14,8 @@ import java.util.stream.Stream;
 
 public class KVServiceFactoryArgumentsProvider implements ArgumentsProvider {
     private final Set<Class<? extends KVServiceFactory>> factories = Set.of(
-            KVServiceFactoryImpl.class
+            KVServiceFactoryRamImpl.class,
+            KVServiceFactoryFileWithCacheImpl.class
     );
 
     @Override

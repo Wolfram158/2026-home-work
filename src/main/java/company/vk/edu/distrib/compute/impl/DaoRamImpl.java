@@ -25,7 +25,7 @@ public class DaoRamImpl implements Dao<byte[]> {
 
     @Override
     public void upsert(String key, byte[] value) throws IllegalArgumentException {
-        if (key == null) {
+        if (key == null || value == null) {
             throw new IllegalArgumentException();
         }
         keyToValue.put(key, value);
