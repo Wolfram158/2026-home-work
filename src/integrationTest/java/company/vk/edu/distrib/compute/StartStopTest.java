@@ -24,7 +24,7 @@ import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
  */
 @ParameterizedClass
 @ArgumentsSource(KVServiceFactoryArgumentsProvider.class)
-public class StartStopTest extends TestBase {
+class StartStopTest extends TestBase {
     private static final HttpClient httpClient = HttpClient.newHttpClient();
     private static final Duration TIMEOUT = Duration.ofSeconds(5);
 
