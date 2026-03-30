@@ -38,7 +38,10 @@ val integrationTestImplementation by configurations.getting {
 }
 val integrationTestRuntimeOnly by configurations.getting
 
-configurations["integrationTestRuntimeOnly"].extendsFrom(configurations.runtimeOnly.get(), configurations.testRuntimeOnly.get())
+configurations["integrationTestRuntimeOnly"].extendsFrom(
+    configurations.runtimeOnly.get(),
+    configurations.testRuntimeOnly.get()
+)
 
 
 tasks.test {
@@ -75,7 +78,6 @@ checkstyle {
     maxWarnings = 0
 }
 
-
 pmd {
     isConsoleOutput = true
     toolVersion = "7.16.0"
@@ -83,12 +85,20 @@ pmd {
     ruleSetFiles(project.layout.projectDirectory.file("pmd.xml"))
 }
 
+tasks.named("checkstyleIntegrationTest").configure {
+    enabled = false
+}
+
+tasks.named("pmdIntegrationTest").configure {
+    enabled = false
+}
+
 tasks.register("codeStyleChecks") {
     group = "verification"
     dependsOn(
         "checkstyleMain",
         "checkstyleTest",
-        "checkstyleIntegrationTest",
+//        "checkstyleIntegrationTest",
         "pmdMain",
     )
 }

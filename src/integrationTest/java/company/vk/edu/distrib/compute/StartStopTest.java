@@ -14,9 +14,7 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Duration;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Basic init/deinit test for {@link KVService} implementation.
@@ -38,10 +36,10 @@ class StartStopTest extends TestBase {
 
     private static int status(int port) throws IOException, URISyntaxException, InterruptedException {
         HttpRequest request = HttpRequest.newBuilder()
-            .GET()
-            .uri(new URI("http://localhost:" + port + "/v0/status"))
-            .timeout(Duration.ofSeconds(2))
-            .build();
+                .GET()
+                .uri(new URI("http://localhost:" + port + "/v0/status"))
+                .timeout(Duration.ofSeconds(2))
+                .build();
         HttpResponse<Void> response = httpClient.send(request, HttpResponse.BodyHandlers.discarding());
         return response.statusCode();
     }

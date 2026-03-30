@@ -1,17 +1,21 @@
 package company.vk.edu.distrib.compute;
 
-import module java.base;
-import company.vk.edu.distrib.compute.mandesero.KVServiceFactoryImpl;
+import company.vk.edu.distrib.compute.impl.KVServiceFactoryFileWithCacheImpl;
 import org.slf4j.LoggerFactory;
 
-public class Server {
+import java.io.IOException;
 
-    void main() throws IOException {
+public final class Server {
+    private Server() {
+    }
+
+    public static void main(String[] args) throws IOException, InterruptedException {
         var log = LoggerFactory.getLogger("server");
         var port = 8080;
-        KVService storage = new KVServiceFactoryImpl().create(port);
+        KVService storage = new KVServiceFactoryFileWithCacheImpl().create(port);
         storage.start();
         log.info("Server started on port {}", port);
+        Thread.currentThread().join();
         Runtime.getRuntime().addShutdownHook(new Thread(storage::stop));
     }
 }
