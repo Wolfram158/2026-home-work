@@ -1,6 +1,7 @@
 package company.vk.edu.distrib.compute.impl;
 
 import company.vk.edu.distrib.compute.Dao;
+import company.vk.edu.distrib.compute.utils.Utils;
 
 import java.util.Map;
 import java.util.NoSuchElementException;
@@ -15,9 +16,8 @@ public class DaoRamImpl implements Dao<byte[]> {
 
     @Override
     public byte[] get(String key) throws NoSuchElementException, IllegalArgumentException {
-        if (key == null) {
-            throw new IllegalArgumentException();
-        } else if (!keyToValue.containsKey(key)) {
+        Utils.assertNotNulls(key);
+        if (!keyToValue.containsKey(key)) {
             throw new NoSuchElementException();
         }
         return keyToValue.get(key);
@@ -25,17 +25,13 @@ public class DaoRamImpl implements Dao<byte[]> {
 
     @Override
     public void upsert(String key, byte[] value) throws IllegalArgumentException {
-        if (key == null || value == null) {
-            throw new IllegalArgumentException();
-        }
+        Utils.assertNotNulls(key, value);
         keyToValue.put(key, value);
     }
 
     @Override
     public void delete(String key) throws IllegalArgumentException {
-        if (key == null) {
-            throw new IllegalArgumentException();
-        }
+        Utils.assertNotNulls(key);
         keyToValue.remove(key);
     }
 

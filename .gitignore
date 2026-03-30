@@ -30,3 +30,9 @@ build/
 
 .idea/
 out/
+
+put.lua
+wrk2
+storage.db
+get.lua
+storage

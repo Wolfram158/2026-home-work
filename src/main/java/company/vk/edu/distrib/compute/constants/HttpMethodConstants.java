@@ -1,4 +1,4 @@
-package company.vk.edu.distrib.compute;
+package company.vk.edu.distrib.compute.constants;
 
 public class HttpMethodConstants {
     public static final String GET = "GET";

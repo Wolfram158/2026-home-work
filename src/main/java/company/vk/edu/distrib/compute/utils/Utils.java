@@ -1,9 +1,6 @@
 package company.vk.edu.distrib.compute.utils;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public final class Utils {
@@ -28,5 +25,11 @@ public final class Utils {
                                 }
                         )
                 );
+    }
+
+    public static void assertNotNulls(Object... objects) {
+        if (Arrays.stream(objects).anyMatch(Objects::isNull)) {
+            throw new IllegalArgumentException();
+        }
     }
 }

@@ -3,8 +3,9 @@ package company.vk.edu.distrib.compute.impl;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpServer;
 import company.vk.edu.distrib.compute.Dao;
-import company.vk.edu.distrib.compute.HttpMethodConstants;
 import company.vk.edu.distrib.compute.KVService;
+import company.vk.edu.distrib.compute.constants.HttpMethodConstants;
+import company.vk.edu.distrib.compute.constants.QueryParamConstants;
 import company.vk.edu.distrib.compute.utils.Utils;
 
 import java.io.IOException;
@@ -77,7 +78,7 @@ public class KVServiceImpl implements KVService {
     ) throws IOException {
         try {
             final Map<String, List<String>> queries = Utils.extractQueryParams(exchange.getRequestURI().getQuery());
-            final List<String> values = queries.get("id");
+            final List<String> values = queries.get(QueryParamConstants.ID);
             if (values.isEmpty() || values.getFirst().isEmpty()) {
                 exchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, -1);
                 return;
@@ -102,7 +103,7 @@ public class KVServiceImpl implements KVService {
     ) {
         try (exchange; InputStream is = exchange.getRequestBody()) {
             final Map<String, List<String>> queries = Utils.extractQueryParams(exchange.getRequestURI().getQuery());
-            final List<String> values = queries.get("id");
+            final List<String> values = queries.get(QueryParamConstants.ID);
             if (values.isEmpty() || values.getFirst().isEmpty()) {
                 exchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, -1);
                 return;
@@ -120,7 +121,7 @@ public class KVServiceImpl implements KVService {
     ) {
         try (exchange) {
             final Map<String, List<String>> queries = Utils.extractQueryParams(exchange.getRequestURI().getQuery());
-            final List<String> values = queries.get("id");
+            final List<String> values = queries.get(QueryParamConstants.ID);
             if (values.isEmpty() || values.getFirst().isEmpty()) {
                 exchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, -1);
             } else {
