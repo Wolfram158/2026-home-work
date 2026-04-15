@@ -6,13 +6,13 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 public class HashFunction {
-    private final MessageDigest md;
-
-    public HashFunction() throws NoSuchAlgorithmException {
-        this.md = MessageDigest.getInstance("MD5");
-    }
-
     public BigInteger getHash(String key) {
+        final MessageDigest md;
+        try {
+            md = MessageDigest.getInstance("MD5");
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
         final byte[] hashBytes = md.digest(key.getBytes(StandardCharsets.UTF_8));
         final StringBuilder sb = new StringBuilder();
         for (byte b : hashBytes) {

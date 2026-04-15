@@ -22,7 +22,7 @@ import java.util.NoSuchElementException;
 
 public class KVServiceImpl implements KVService {
     private final HttpServer server;
-    private Router router = null;
+    private Router router;
     private final HttpClient client;
     private final String endpoint;
     private static final String ENTITY_SUFFIX = "/v0/entity";
@@ -99,6 +99,7 @@ public class KVServiceImpl implements KVService {
         });
     }
 
+    @SuppressWarnings("PMD.UseTryWithResources")
     private void handleProxy(
             final HttpExchange exchange,
             final String workEndpoint,

@@ -16,11 +16,12 @@ public class Wolfram158KVClusterImpl implements KVCluster {
     private final KVServiceFactory factory;
     private final Router router;
 
-    public Wolfram158KVClusterImpl(List<String> endpoints, KVServiceFactory factory) throws IOException, NoSuchAlgorithmException {
+    public Wolfram158KVClusterImpl(List<String> endpoints, KVServiceFactory factory) throws IOException,
+            NoSuchAlgorithmException {
         this.endpoints = endpoints;
         this.endpointToKVService = new ConcurrentHashMap<>();
         this.factory = factory;
-        this.router = new Rendezvous(endpoints); // new ConsistentHashing(endpoints, 100);
+        this.router = new ConsistentHashing(endpoints, 100);
         for (String endpoint : endpoints) {
             final KVServiceImpl service = (KVServiceImpl) factory.create(Utils.extractPort(endpoint));
             service.setRouter(this.router);
@@ -39,7 +40,7 @@ public class Wolfram158KVClusterImpl implements KVCluster {
         if (service != null) {
             try {
                 service.start();
-            } catch (IllegalStateException _) {
+            } catch (IllegalStateException ignored) {
                 try {
                     final var newService = (KVServiceImpl) factory.create(Utils.extractPort(endpoint));
                     newService.setRouter(router);
