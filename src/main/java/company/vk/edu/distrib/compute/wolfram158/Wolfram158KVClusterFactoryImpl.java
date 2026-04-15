@@ -15,8 +15,8 @@ public class Wolfram158KVClusterFactoryImpl extends KVClusterFactory {
                     Utils.mapToLocalhostEndpoints(ports),
                     new Wolfram158KVServiceFactoryFileWithCacheImpl()
             );
-        } catch (IOException | NoSuchAlgorithmException e) {
-            throw new RuntimeException(String.format("Exception occurred when creating KVCluster: %s", e));
+        } catch (IOException | NoSuchAlgorithmException ignored) {
+            return null;
         }
     }
 }

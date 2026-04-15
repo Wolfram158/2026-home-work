@@ -40,14 +40,14 @@ public class Wolfram158KVClusterImpl implements KVCluster {
         if (service != null) {
             try {
                 service.start();
-            } catch (IllegalStateException ignored) {
+            } catch (IllegalStateException ignored1) {
                 try {
                     final var newService = (KVServiceImpl) factory.create(Utils.extractPort(endpoint));
                     newService.setRouter(router);
                     newService.start();
                     endpointToKVService.put(endpoint, newService);
-                } catch (Exception e) {
-                    throw (RuntimeException) new RuntimeException("Could not start service").initCause(e);
+                } catch (IOException ignored2) {
+                    // no op
                 }
             }
         } else {
@@ -56,8 +56,8 @@ public class Wolfram158KVClusterImpl implements KVCluster {
                 newService.setRouter(router);
                 newService.start();
                 endpointToKVService.put(endpoint, newService);
-            } catch (Exception e) {
-                throw (RuntimeException) new RuntimeException("Could not start service").initCause(e);
+            } catch (IOException ignored) {
+                // no op
             }
         }
     }
