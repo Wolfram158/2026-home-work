@@ -9,7 +9,7 @@ public class Rendezvous implements Router {
     private final List<String> endpoints;
     private final HashFunction hashFunction;
 
-    public Rendezvous(List<String> endpoints) throws NoSuchAlgorithmException {
+    public Rendezvous(List<String> endpoints) {
         this.endpoints = endpoints;
         this.hashFunction = new HashFunction();
     }
@@ -19,7 +19,7 @@ public class Rendezvous implements Router {
         var maxHash = MIN;
         String result = null;
         for (String endpoint : endpoints) {
-            final var hash = hashFunction.getHash(endpoint);
+            final var hash = hashFunction.getHash(endpoint + key);
             if (hash.compareTo(maxHash) > 0) {
                 maxHash = hash;
                 result = endpoint;

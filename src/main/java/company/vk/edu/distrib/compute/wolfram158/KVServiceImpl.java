@@ -20,6 +20,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
+import java.util.concurrent.Executors;
 
 public class KVServiceImpl implements KVService {
     private final HttpServer server;
@@ -30,6 +31,7 @@ public class KVServiceImpl implements KVService {
 
     public KVServiceImpl(final int port, final Dao<byte[]> dao) throws IOException {
         server = HttpServer.create(new InetSocketAddress(port), 0);
+        server.setExecutor(Executors.newVirtualThreadPerTaskExecutor());
         endpoint = Utils.mapToLocalhostEndpoint(port);
         client = HttpClient.newHttpClient();
         addStatusHandler();

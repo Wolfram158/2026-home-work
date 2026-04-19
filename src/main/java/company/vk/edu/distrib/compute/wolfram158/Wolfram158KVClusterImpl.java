@@ -24,7 +24,7 @@ public class Wolfram158KVClusterImpl implements KVCluster {
         this.endpoints = endpoints;
         this.endpointToKVService = new ConcurrentHashMap<>();
         this.factory = factory;
-        this.router = new Rendezvous(endpoints);
+        this.router = new ConsistentHashing(endpoints, 100);
         for (String endpoint : endpoints) {
             final KVServiceImpl service = (KVServiceImpl) factory.create(Utils.extractPort(endpoint));
             service.setRouter(this.router);
