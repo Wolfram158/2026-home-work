@@ -5,6 +5,8 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public final class Utils {
+    public static final int GRPC_DIFF = 2026;
+
     private Utils() {
 
     }
@@ -44,5 +46,9 @@ public final class Utils {
 
     public static String mapToLocalhostEndpoint(int port) {
         return "http://localhost:" + port;
+    }
+
+    public static String mapToLocalhostGrpcEndpoint(int port) {
+        return "localhost:" + (port + GRPC_DIFF);
     }
 }

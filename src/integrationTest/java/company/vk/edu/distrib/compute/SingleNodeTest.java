@@ -53,10 +53,10 @@ class SingleNodeTest extends TestBase {
             storage.start();
             try {
                 HttpRequest request = HttpRequest.newBuilder()
-                    .GET()
-                    .uri(new URI(url(endpoint, "/abracadabra")))
-                    .timeout(TIMEOUT)
-                    .build();
+                        .GET()
+                        .uri(new URI(url(endpoint, "/abracadabra")))
+                        .timeout(TIMEOUT)
+                        .build();
                 assertEquals(404, HTTP_CLIENT.send(request, HttpResponse.BodyHandlers.discarding()).statusCode());
             } finally {
                 storage.stop();
