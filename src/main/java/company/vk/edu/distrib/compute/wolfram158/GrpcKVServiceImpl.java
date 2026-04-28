@@ -149,29 +149,33 @@ public class GrpcKVServiceImpl extends GrpcKVServiceGrpc.GrpcKVServiceImplBase i
                     return;
                 }
             }
-            switch (exchange.getRequestMethod()) {
-                case HttpMethodConstants.GET: {
-                    handleGetEntity(exchange);
-                    break;
-                }
-
-                case HttpMethodConstants.PUT: {
-                    handlePutEntity(exchange);
-                    break;
-                }
-
-                case HttpMethodConstants.DELETE: {
-                    handleDeleteEntity(exchange);
-                    break;
-                }
-
-                default: {
-                    exchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_METHOD, -1);
-                    exchange.close();
-                    break;
-                }
-            }
+            handleLocally(exchange);
         });
+    }
+
+    private void handleLocally(final HttpExchange exchange) throws IOException {
+        switch (exchange.getRequestMethod()) {
+            case HttpMethodConstants.GET: {
+                handleGetEntity(exchange);
+                break;
+            }
+
+            case HttpMethodConstants.PUT: {
+                handlePutEntity(exchange);
+                break;
+            }
+
+            case HttpMethodConstants.DELETE: {
+                handleDeleteEntity(exchange);
+                break;
+            }
+
+            default: {
+                exchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_METHOD, -1);
+                exchange.close();
+                break;
+            }
+        }
     }
 
     @SuppressWarnings("PMD.UseTryWithResources")
